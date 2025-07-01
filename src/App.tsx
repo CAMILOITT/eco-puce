@@ -2,10 +2,7 @@ import { Route, Switch } from "wouter"
 import "./App.css"
 import Dashboard from "./page/Dashboard"
 import Index from "./page/Index"
-
-const title = "EcoPUCE @- Reciclaje de botellas PET en la PUCE"
-
-console.log(title)
+import Camera from "./feature/camera/Camera"
 
 function App() {
   return (
@@ -15,6 +12,10 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/users/:name">
           {params => <>Hello, {params.name}!</>}
+        </Route>
+        
+        <Route path="/camera/:pin">
+          {params => <Camera/>}
         </Route>
         <Route>404: No such page!</Route>
       </Switch>

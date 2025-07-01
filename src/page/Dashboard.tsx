@@ -1,44 +1,35 @@
+import { useState } from "react"
+import Aside from "../components/aside/Aside"
+import Banner from "../components/banner/Banner"
+import History from "../components/history/History"
 import { logout } from "../service/google/session"
 
 interface PropDashboard {}
 
 export default function Dashboard({}: PropDashboard) {
+  const [openMenu, setOpenMenu] = useState(false)
   return (
     <main>
+      <Aside open={openMenu} />
       <div>
-        <button>menu</button>
+        <button
+          onClick={() => {
+            setOpenMenu(value => !value)
+          }}>
+          menu
+        </button>
         <button onClick={logout}>cerrar session</button>
       </div>
       <h1>Bienvenido a EcoPUCE</h1>
+      <Banner avatar="" />
+      <History />
       <div>
-        <div>puntos de recolección</div>
-        <div>escanear</div>
-      </div>
-      <div>
-        <details>
-          <summary>historial de puntos de recolección</summary>
-          <ul>
-            <li>punto 1</li>
-            <li>punto 2</li>
-            <li>punto 3</li>
-            <li>punto 4</li>
-            <li>punto 5</li>
-            <li>punto 6</li>
-            <li>punto 7</li>
-            <li>punto 8</li>
-          </ul>
-        </details>
-      </div>
-
-      <div>
-        <p>menu</p>
-        <ul>
-          <li>Inicio</li>
-          <li>Historial</li>
-          <li>Configuración</li>
-          <li>Ayuda</li>
-          <li>Acerca de nosotros</li>
-        </ul>
+        Ranking
+        <h2>posición #N</h2>
+        <h3>puntos obtenidos</h3>
+        <p>
+          Has reciclado <strong>0</strong> botellas PET
+        </p>
       </div>
     </main>
   )

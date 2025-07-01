@@ -3,7 +3,7 @@ import { auth } from "./config"
 
 const provider = new GoogleAuthProvider()
 
-export async function login() {
+export async function login(redirect: () => void) {
   await signInWithRedirect(auth, provider)
     .then(result => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -13,7 +13,7 @@ export async function login() {
       const user = result
       console.log("User signed in:", user)
       console.log("Google Access Token:", token)
-      // ... (You can redirect or update UI here)
+      redirect()
     })
     .catch(error => {
       // Handle Errors here.
@@ -28,9 +28,9 @@ export async function login() {
     })
 }
 
-
 export async function logout() {
-  await auth.signOut()
+  await auth
+    .signOut()
     .then(() => {
       console.log("User signed out successfully.")
     })
