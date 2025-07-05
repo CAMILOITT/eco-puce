@@ -25,8 +25,10 @@ export default function Dashboard({}: PropDashboard) {
         alt="user"
         children={<h1>Bienvenido a EcoPUCE</h1>}
       />
-      <History />
-      <BannerPoints />
+      <div>
+        <History />
+        <BannerPoints />
+      </div>
     </main>
   )
 }
