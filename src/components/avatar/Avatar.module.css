@@ -1,0 +1,10 @@
+.avatar {
+  --size: 100px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50px;
+  object-fit: contain;
+  /* border: 2px solid #fff; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* object-view-box: inset(10% 10% 10% 10%); */
+}

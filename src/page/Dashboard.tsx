@@ -19,8 +19,12 @@ export default function Dashboard({}: PropDashboard) {
           menu
         </button>
       </div>
-      <h1>Bienvenido a EcoPUCE</h1>
-      <Banner avatar="" />
+
+      <Banner
+        avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
+        alt="user"
+        children={<h1>Bienvenido a EcoPUCE</h1>}
+      />
       <History />
       <BannerPoints />
     </main>
