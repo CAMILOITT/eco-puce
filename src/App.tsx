@@ -1,8 +1,8 @@
 import { Route, Switch } from "wouter"
 import "./App.css"
+import Camera from "./feature/camera/Camera"
 import Dashboard from "./page/Dashboard"
 import Index from "./page/Index"
-import Camera from "./feature/camera/Camera"
 
 function App() {
   return (
@@ -13,10 +13,7 @@ function App() {
         <Route path="/users/:name">
           {params => <>Hello, {params.name}!</>}
         </Route>
-        
-        <Route path="/camera/:pin">
-          {params => <Camera/>}
-        </Route>
+        <Route path="/camera/:pin">{params => <Camera />}</Route>
         <Route>404: No such page!</Route>
       </Switch>
     </>
