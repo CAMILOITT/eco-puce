@@ -1,13 +1,26 @@
-interface PropBannerPoints {}
+import css from "./BannerPoints.module.css"
 
-export default function BannerPoints({}: PropBannerPoints) {
+interface PropBannerPoints {
+  points: number
+  bottles: number
+  position: number
+  ranking?: number
+}
+
+export default function BannerPoints({
+  points,
+  bottles,
+  position,
+}: PropBannerPoints) {
   return (
-    <div>
-      Ranking
-      <h2>posición #N</h2>
-      <h3>puntos obtenidos</h3>
-      <p>
-        Has reciclado <strong>0</strong> botellas PET
+    <div className={css.banner_points}>
+      <h3>Ranking</h3>
+      <h4 className={css.position}>posición # {position}</h4>
+      {/* <h3 className={css.text_points}>puntos obtenidos</h3> */}
+      <span className={css.points}>{points}</span>
+      <p className={css.bottles}>
+        Has reciclado <span className={css.points_bottles}>{bottles}</span>{" "}
+        botellas PET
       </p>
     </div>
   )

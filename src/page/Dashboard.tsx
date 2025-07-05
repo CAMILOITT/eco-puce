@@ -27,7 +27,7 @@ export default function Dashboard({}: PropDashboard) {
       />
       <div>
         <History />
-        <BannerPoints />
+        <BannerPoints points={0} bottles={0} position={0} />
       </div>
     </main>
   )
