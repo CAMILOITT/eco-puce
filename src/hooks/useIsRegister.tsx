@@ -1,9 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth"
-import { useState } from "react"
 import { auth } from "../service/google/config"
 
 export function useIsRegister() {
-  const [Login, setLogin] = useState(false)
+  // const [Login, setLogin] = useState(false)
 
   function checkSession(callback: (user: any) => void) {
     onAuthStateChanged(auth, user => {

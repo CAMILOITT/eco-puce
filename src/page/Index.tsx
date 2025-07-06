@@ -8,7 +8,6 @@ export default function Index({}: PropIndex) {
   return (
     <main>
       <h1>Bienvenido a EcoPUCE</h1>
-      {/* <div>animacion de reciclaje</div> */}
       <p>
         EcoPUCE es un proyecto que busca fomentar el reciclaje de botellas PET
         en la comunidad universitaria de la PUCE.
@@ -30,7 +29,6 @@ export default function Index({}: PropIndex) {
           Este es un pequeño proyecto de estudiante de la facultad de Ingeniería
           el cual busca crear conciencia en el reciclaje de botella PET
         </p>
-        {/* aplicar click al movimiento animacion, seguimiento del raton */}
       </Link>
       <div>copyright</div>
     </main>
