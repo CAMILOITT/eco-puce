@@ -1,3 +1,4 @@
+import { Link } from "wouter"
 import { logout } from "../../service/google/session"
 import css from "./Aside.module.css"
 
@@ -28,9 +29,15 @@ export default function Aside({ open, setOpen }: PropAside) {
         </button>
       </div>
       <div className={css.content}>
-        <button>Inicio</button>
-        <button>Ranking</button>
-        <button>Historial</button>
+        <Link className={css.link} to="/dashboard">
+          Inicio
+        </Link>
+        <Link className={css.link} to="/ranking">
+          Ranking
+        </Link>
+        <Link className={css.link} to="/History">
+          Historial
+        </Link>
       </div>
       <div className={css.footer}>
         {/* <button>configuration</button> */}

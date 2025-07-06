@@ -9,7 +9,13 @@ interface PropDashboard {}
 export default function Dashboard({}: PropDashboard) {
   const [openMenu, setOpenMenu] = useState(false)
   return (
-    <main>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        minHeight: "100vh",
+      }}>
       <Aside open={openMenu} setOpen={setOpenMenu} />
       <div>
         <button
@@ -25,8 +31,15 @@ export default function Dashboard({}: PropDashboard) {
         alt="user"
         children={<h1>Bienvenido a EcoPUCE</h1>}
       />
-      <div>
-        <History />
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          alignContent: "center",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+        <History history={[]} />
         <BannerPoints points={0} bottles={0} position={0} />
       </div>
     </main>
