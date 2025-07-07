@@ -1,5 +1,4 @@
 // Import the functions you need from the SDKs you need
-import { getAnalytics } from "firebase/analytics"
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 const {
@@ -12,6 +11,8 @@ const {
   VITE_MEASUREMENT_ID,
 } = import.meta.env
 
+console.log(VITE_API_KEY)
+
 const firebaseConfig = {
   apiKey: VITE_API_KEY,
   authDomain: VITE_AUTH_DOMAIN,
@@ -23,6 +24,6 @@ const firebaseConfig = {
 }
 
 export const app = initializeApp(firebaseConfig)
-export const analytics = getAnalytics(app)
+// export const analytics = getAnalytics(app)
 export const auth = getAuth(app)
 auth.languageCode = "es"
