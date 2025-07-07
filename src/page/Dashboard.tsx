@@ -1,5 +1,3 @@
-import { useState } from "react"
-import Aside from "../components/aside/Aside"
 import Banner from "../components/banner/Banner"
 import BannerPoints from "../components/bannerPoints/BannerPoints"
 import History from "../components/history/History"
@@ -7,7 +5,6 @@ import History from "../components/history/History"
 interface PropDashboard {}
 
 export default function Dashboard({}: PropDashboard) {
-  const [openMenu, setOpenMenu] = useState(false)
   return (
     <main
       style={{
@@ -16,16 +13,6 @@ export default function Dashboard({}: PropDashboard) {
         gap: "2rem",
         minHeight: "100vh",
       }}>
-      <Aside open={openMenu} setOpen={setOpenMenu} />
-      <div>
-        <button
-          onClick={() => {
-            setOpenMenu(value => !value)
-          }}>
-          menu
-        </button>
-      </div>
-
       <Banner
         avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
         alt="user"
