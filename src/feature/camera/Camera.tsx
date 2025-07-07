@@ -10,14 +10,14 @@ export default function Camera({}: PropCamera) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [photo, setPhoto] = useState<string | null>(null)
   const [streaming, setStreaming] = useState(false)
-  const [lastEmbedding, setLastEmbedding] = useState<number[] | null>(null)
+  // const [lastEmbedding, setLastEmbedding] = useState<number[] | null>(null)
   const [result, setResult] = useState<string>("")
   const [facingMode, setFacingMode] = useState<"user" | "environment">(
     "environment",
   )
   const dialogRef = useRef<null | any>(null)
 
-  const [loading, SetLoading] = useState(false)
+  // const [loading, SetLoading] = useState(false)
 
   useEffect(() => {
     startCamera()
@@ -78,6 +78,7 @@ export default function Camera({}: PropCamera) {
         console.log("Detectando botellas...")
         console.log(img.src)
         console.log(await detectBottles(await loadModel(), img))
+        setResult("registrando botella")
         // if (!hasBottleInImage(embedding)) {
         //   setResult("No se detectó una botella visible en la foto")
         //   return
