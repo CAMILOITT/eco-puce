@@ -1,0 +1,63 @@
+/* stylelint-disable declaration-property-unit-allowed-list */
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+
+  h1 {
+    color: #21C063;
+  }
+
+
+  .link_about {
+    --before-size: 3rem;
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #2bf37e8a;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &:hover::before {
+      --before-size: 8rem;
+      opacity: 1;
+    }
+
+
+    &::before {
+      top: calc(var(--top) - (var(--before-size)/2));
+      left: calc(var(--left) - (var(--before-size)/2));
+      opacity: 0;
+      transition: width 250ms;
+      width: var(--before-size);
+      height: var(--before-size);
+      position: absolute;
+      z-index: -1;
+      background: black;
+      content: "click";
+      font-weight: bold;
+      text-align: center;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+  }
+
+}
+
+@property --before-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 3rem;
+}

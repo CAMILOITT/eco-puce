@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "stylelint-config-standard"
-  ],
+  "extends": ["stylelint-config-standard"],
   "rules": {
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": null,
@@ -15,19 +13,10 @@
     "unit-no-unknown": true,
     "color-no-invalid-hex": true,
     "declaration-property-unit-allowed-list": {
-      "/^border/": [
-        "px"
-      ],
-      "/^padding|^gap/": [
-        "rem"
-      ]
+      "/^border/": ["px"],
+      "/^padding|^gap/": ["rem"],
+      "border-radius": ["%"]
     },
-    "unit-allowed-list": [
-      "%",
-      "deg",
-      "px",
-      "rem",
-      "ms", "vh", "vw"
-    ]
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vh", "vw"]
   }
 }
