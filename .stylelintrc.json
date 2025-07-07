@@ -1,1 +1,33 @@
-{ "extends": ["stylelint-config-standard"] }
+{
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": null,
+    "at-rule-no-unknown": null,
+    "block-no-empty": null,
+    "color-hex-length": "short",
+    "no-duplicate-selectors": true,
+    "property-no-vendor-prefix": true,
+    "selector-class-pattern": null,
+    "selector-id-pattern": null,
+    "selector-max-id": 0,
+    "unit-no-unknown": true,
+    "color-no-invalid-hex": true,
+    "declaration-property-unit-allowed-list": {
+      "/^border/": [
+        "px"
+      ],
+      "/^padding|^gap/": [
+        "rem"
+      ]
+    },
+    "unit-allowed-list": [
+      "%",
+      "deg",
+      "px",
+      "rem",
+      "ms", "vh", "vw"
+    ]
+  }
+}

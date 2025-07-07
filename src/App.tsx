@@ -14,7 +14,7 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/ranking" component={Ranking} />
         <Route path="/history" component={History} />
-        <Route path="/camera/:pin">{params => <Camera />}</Route>
+        <Route path="/camera/:pin">{() => <Camera />}</Route>
         <Route>404: No such page!</Route>
       </Switch>
     </>

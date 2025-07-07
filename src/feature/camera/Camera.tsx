@@ -1,5 +1,7 @@
-import { useRef, useState } from "react"
-import { getImageEmbedding, cosineSimilarity } from "./bottleAI"
+import { useEffect, useRef, useState } from "react"
+import { Link } from "wouter"
+import { detectBottles, loadModel } from "./bottleAI"
+import css from "./Camera.module.css"
 
 interface PropCamera {}
 
@@ -13,8 +15,15 @@ export default function Camera({}: PropCamera) {
   const [facingMode, setFacingMode] = useState<"user" | "environment">(
     "environment",
   )
+  const dialogRef = useRef<null | any>(null)
 
-  const startCamera = async () => {
+  const [loading, SetLoading] = useState(false)
+
+  useEffect(() => {
+    startCamera()
+  }, [])
+
+  async function startCamera() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -30,7 +39,7 @@ export default function Camera({}: PropCamera) {
     }
   }
 
-  const switchCamera = async () => {
+  async function switchCamera() {
     // Detener cámara actual si está activa
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream
@@ -40,12 +49,18 @@ export default function Camera({}: PropCamera) {
     }
     setFacingMode(prev => (prev === "user" ? "environment" : "user"))
     // Esperar a que facingMode cambie y luego iniciar cámara
-    setTimeout(() => {
+    const idTime = setTimeout(() => {
       startCamera()
     }, 200)
+    return () => {
+      clearTimeout(idTime)
+    }
   }
 
-  const takePhoto = async () => {
+  async function takePhoto() {
+    if (dialogRef.current) {
+      dialogRef.current.showModal()
+    }
     if (videoRef.current && canvasRef.current) {
       const width = videoRef.current.videoWidth
       const height = videoRef.current.videoHeight
@@ -56,29 +71,38 @@ export default function Camera({}: PropCamera) {
         ctx.drawImage(videoRef.current, 0, 0, width, height)
         const dataUrl = canvasRef.current.toDataURL("image/png")
         setPhoto(dataUrl)
-        // Analizar la botella
-        const embedding = await getImageEmbedding(canvasRef.current)
-        if (lastEmbedding) {
-          const similarity = cosineSimilarity(lastEmbedding, embedding)
-          setResult(
-            similarity > 0.85 ? "Es la misma botella" : "Es diferente botella",
-          )
-        } else {
-          setResult("Primera botella registrada")
-        }
-        setLastEmbedding(embedding)
+        const img: HTMLImageElement = new Image()
+        img.src = dataUrl
+        // Obtener embedding de la imagen
+        // const embedding = await getImageEmbedding(img)
+        console.log("Detectando botellas...")
+        console.log(img.src)
+        console.log(await detectBottles(await loadModel(), img))
+        // if (!hasBottleInImage(embedding)) {
+        //   setResult("No se detectó una botella visible en la foto")
+        //   return
+        // }
+        // if (lastEmbedding) {
+        //   const similarity = cosineSimilarity(lastEmbedding, embedding!)
+        //   setResult(
+        //     similarity > 0.85 ? "Es la misma botella" : "Es diferente botella",
+        //   )
+        // } else {
+        //   setResult("Primera botella registrada")
+        // }
+        // setLastEmbedding(embedding!)
       }
     }
   }
 
-  const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream
-      stream.getTracks().forEach(track => track.stop())
-      videoRef.current.srcObject = null
-      setStreaming(false)
-    }
-  }
+  // function stopCamera() {
+  //   if (videoRef.current && videoRef.current.srcObject) {
+  //     const stream = videoRef.current.srcObject as MediaStream
+  //     stream.getTracks().forEach(track => track.stop())
+  //     videoRef.current.srcObject = null
+  //     setStreaming(false)
+  //   }
+  // }
 
   /*
    ver cuantas cámaras tiene el dispositivo
@@ -91,36 +115,38 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
   */
 
   return (
-    <div>
-      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-        {!streaming && <button onClick={startCamera}>Iniciar cámara</button>}
-        <button onClick={switchCamera}>
-          Cambiar a cámara {facingMode === "user" ? "trasera" : "frontal"}
-        </button>
-      </div>
-      <video ref={videoRef} autoPlay style={{ width: 320, height: 240 }} />
+    <main className={css.main}>
+      <video ref={videoRef} autoPlay className={css.video} />
       {streaming && (
         <>
-          <div>
+          <div className={css.interactive_btn}>
             <button onClick={takePhoto}>Tomar foto</button>
-            <button onClick={stopCamera}>Detener cámara</button>
+            <button onClick={switchCamera}>
+              Cambiar a cámara {facingMode === "user" ? "trasera" : "frontal"}
+            </button>
           </div>
         </>
       )}
       <canvas ref={canvasRef} style={{ display: "none" }} />
-      {photo && (
-        <div>
-          <h4>Foto tomada:</h4>
-          <img
-            src={photo}
-            alt="Foto tomada"
-            style={{ width: 320, height: 240 }}
-          />
+      <Link to="/dashboard" className={css.back}>
+        dash
+      </Link>
+      <dialog ref={dialogRef} className={css.dialog}>
+        validando imagen...
+        <div style={{ marginTop: 8, fontWeight: "bold" }}>
+          resultado: {result}
         </div>
-      )}
-      <div style={{ marginTop: 8, fontWeight: "bold" }}>
-        resultado: {result}
-      </div>
-    </div>
+        {photo && (
+          <div>
+            <h4>Foto tomada:</h4>
+            <img
+              src={photo}
+              alt="Foto tomada"
+              style={{ width: 320, height: 240 }}
+            />
+          </div>
+        )}
+      </dialog>
+    </main>
   )
 }
