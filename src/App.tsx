@@ -19,8 +19,7 @@ function App() {
         <Route path="/about" component={About} />
         <Route path="/camera/:pin">{() => <Camera />}</Route>
         <Route>
-          {" "}
-          <NotFound />{" "}
+          <NotFound />
         </Route>
       </Switch>
     </>

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useLocation } from "wouter"
+import { auth } from "../service/google/config"
 import { login } from "../service/google/session"
 import css from "./Index.module.css"
 
@@ -24,8 +25,11 @@ export default function Index({}: PropIndex) {
 
       <div>
         <button
-          onClick={() => {
-            login(() => navigate("/dashboard"))
+          onClick={async () => {
+            if (!auth) {
+              await login(() => navigate("/dashboard"))
+            }
+            navigate("/dashboard")
           }}>
           Comenzar a reciclar
         </button>

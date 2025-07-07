@@ -1,8 +1,19 @@
-export function useAuth() {
-  // This is a placeholder for the actual authentication logic.
-  // In a real application, you would implement the logic to check if the user is authenticated.
-  const user = null // Replace with actual user state
-  const loading = false // Replace with actual loading state
+import { onAuthStateChanged, type User } from "firebase/auth"
+import { useEffect, useState } from "react"
+import { auth } from "../service/google/config"
+
+export function useAuth(): { user: User | null; loading: boolean } {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+      setUser(firebaseUser)
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   return { user, loading }
 }

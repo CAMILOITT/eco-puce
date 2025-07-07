@@ -9,8 +9,7 @@ export async function login(redirect: () => void) {
       const credential = GoogleAuthProvider.credentialFromResult(result)
       const token = credential?.accessToken
       const user = result
-      console.log("User signed in:", user)
-      console.log("Google Access Token:", token)
+      // console.log("User signed in:", user)
     })
     .then(() => redirect())
     .catch(error => {
