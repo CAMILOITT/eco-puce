@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "wouter"
+import { registerBottle } from "../../service/google/db/reciclar"
 import { detectBottles, loadModel } from "./bottleAI"
 import css from "./Camera.module.css"
 
@@ -75,10 +76,13 @@ export default function Camera({}: PropCamera) {
         img.src = dataUrl
         // Obtener embedding de la imagen
         // const embedding = await getImageEmbedding(img)
-        console.log("Detectando botellas...")
-        console.log(img.src)
-        console.log(await detectBottles(await loadModel(), img))
-        setResult("registrando botella")
+        const detections = await detectBottles(await loadModel(), img)
+        if (detections && detections.length > 0) {
+          setResult("Botella detectada en la imagen")
+          await registerBottle("userId", 2)
+        } else {
+          setResult("No se detectó una botella visible en la foto")
+        }
         // if (!hasBottleInImage(embedding)) {
         //   setResult("No se detectó una botella visible en la foto")
         //   return
@@ -145,6 +149,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
               alt="Foto tomada"
               style={{ width: 320, height: 240 }}
             />
+            <Link to="/dashboard">aceptar</Link>
           </div>
         )}
       </dialog>

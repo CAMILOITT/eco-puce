@@ -1,14 +1,24 @@
+import { use } from "react"
 import CardRankingUser from "../components/cardRankingUser/CardRankingUser"
-import Podium from "../components/podium/Podium"
 import css from "./Ranking.module.css"
 
-interface PropRanking {}
+interface PropRanking {
+  fetchRanking: Promise<
+    {
+      name: string
+      totalPoints: number
+      totalBottles: number
+      id: string
+    }[]
+  >
+}
 
-export default function Ranking({}: PropRanking) {
+export default function Ranking({ fetchRanking }: PropRanking) {
+  const ranking = use(fetchRanking)
   return (
     <main className={css.main}>
       <h1>Ranking</h1>
-      <div className={css.podium_container}>
+      {/* <div className={css.podium_container}>
         <Podium
           alt="user"
           avatarImg="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
@@ -38,15 +48,19 @@ export default function Ranking({}: PropRanking) {
         position={1}
         alt="user"
         avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
-      />
+      /> */}
       <div className={css.ranking_container}>
-        {
+        {ranking.map(({ id, name, totalBottles, totalPoints }) => (
           <CardRankingUser
+            key={id}
             position={1}
             alt="user"
             avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
+            points={totalPoints}
+            bottles={totalBottles}
+            name={name}
           />
-        }
+        ))}
       </div>
     </main>
   )

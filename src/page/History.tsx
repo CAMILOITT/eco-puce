@@ -1,11 +1,14 @@
+import { use } from "react"
+import type { UserHistory } from "../types/history.type"
 import css from "./History.module.css"
-interface PropHistory {}
 
-const history: { date: string; n_botellas: number; n_points: number }[] = [
-  { date: "07-07-25", n_botellas: 3, n_points: 2 },
-]
+interface PropHistory {
+  historyPromise: Promise<UserHistory[]>
+}
 
-export default function History({}: PropHistory) {
+export default function History({ historyPromise }: PropHistory) {
+  const userHistory = use<UserHistory[]>(historyPromise)
+
   return (
     <div className={css.main}>
       <h1>historial</h1>
@@ -26,16 +29,14 @@ export default function History({}: PropHistory) {
           <thead>
             <tr>
               <td>fecha</td>
-              <td># botellas</td>
               <td># puntos</td>
             </tr>
           </thead>
           <tbody>
-            {history.map(({ date, n_botellas, n_points }) => (
-              <tr>
-                <td>{date}</td>
-                <td>{n_botellas}</td>
-                <td>{n_points}</td>
+            {userHistory.map(({ id, /* date, */ points }) => (
+              <tr key={id}>
+                <td>fecha</td>
+                <td>{points}</td>
               </tr>
             ))}
           </tbody>

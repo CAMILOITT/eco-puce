@@ -1,10 +1,20 @@
+import { use } from "react"
 import Banner from "../components/banner/Banner"
 import BannerPoints from "../components/bannerPoints/BannerPoints"
 import History from "../components/history/History"
 import css from "./Dashboard.module.css"
-interface PropDashboard {}
+interface PropDashboard {
+  fetchUserPosition: Promise<{
+    position: number
+    id: string
+    name: string
+    totalPoints: number
+    totalBottles: number
+  } | null>
+}
 
-export default function Dashboard({}: PropDashboard) {
+export default function Dashboard({ fetchUserPosition }: PropDashboard) {
+  const userPosition = use(fetchUserPosition)
   return (
     <main className={css.main}>
       <Banner
@@ -14,7 +24,11 @@ export default function Dashboard({}: PropDashboard) {
       />
       <div className={css.viewer}>
         <History history={[]} />
-        <BannerPoints points={0} bottles={0} position={0} />
+        <BannerPoints
+          points={userPosition?.totalPoints ?? 0}
+          bottles={userPosition?.totalBottles ?? 0}
+          position={userPosition?.position ?? 0}
+        />
       </div>
     </main>
   )

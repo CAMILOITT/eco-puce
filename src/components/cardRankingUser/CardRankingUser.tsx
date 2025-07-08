@@ -6,7 +6,8 @@ interface PropCardRankingUser {
   alt: string
   position: number
   points?: number
-  botellas?: number
+  bottles?: number
+  name: string
 }
 
 export default function CardRankingUser({
@@ -14,7 +15,8 @@ export default function CardRankingUser({
   alt,
   position,
   points = 100,
-  botellas = 10,
+  bottles: botellas = 10,
+  name,
 }: PropCardRankingUser) {
   return (
     <div className={css.card_ranking_user}>
@@ -22,7 +24,7 @@ export default function CardRankingUser({
       <div className={css.card_ranking_user_header}>
         <Avatar avatar={avatar} alt={alt} />
       </div>
-      <span className={css.name}>Camilo</span>
+      <span className={css.name}>{name}</span>
       <div className={css.card_ranking_user_body}>
         <p className={css.points}>
           <span className={css.points_title}>Points:</span>
