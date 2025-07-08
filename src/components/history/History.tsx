@@ -16,7 +16,7 @@ export default function History({ history }: PropHistory) {
       <details open className={css.details}>
         <summary className={css.month}>Junio</summary>
         {history.length < 1 ? (
-          <p>
+          <p className={css.message} >
             Aun no has reciclado ninguna botella, comienza a hacer el cambio
           </p>
         ) : (
@@ -37,7 +37,9 @@ export default function History({ history }: PropHistory) {
                 ))}
               </tbody>
             </table>
-            <Link to="/dashboard/history">Ver mas</Link>
+            <Link to="/dashboard/history" className={css.view_more}>
+              Ver mas
+            </Link>
           </div>
         )}
       </details>

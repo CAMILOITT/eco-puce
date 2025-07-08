@@ -5,6 +5,12 @@
   width: 100%;
   max-width: 800px;
   margin: auto;
+  max-width: 500px;
+
+  .message {
+    text-align: center;
+
+  }
 
   .details {
     display: flex;
@@ -12,13 +18,14 @@
     gap: 1rem;
     transition: 400ms ease-in-out;
     min-width: 200px;
+
     &:open {
-      background-color: red;
+      /* background-color: red; */
       max-height: 576px;
     }
 
     .month {
-      padding: 10px;
+      padding: 1rem;
       font-weight: bold;
       font-size: 2rem;
       font-weight: bold;

@@ -17,6 +17,7 @@ function App() {
     <>
       <Switch>
         <Route path="/" component={Index} />
+        <Route path="/camera" component={() => <Camera />} />
         <Route>
           <Aside open={openMenu} setOpen={setOpenMenu} />
           <div>
@@ -33,9 +34,6 @@ function App() {
             <Route path="/history" component={History} />
             <Route path="/about" component={About} />
           </Switch>
-        </Route>
-        <Route path="/camera">
-          <Camera />
         </Route>
         <Route>
           <NotFound />

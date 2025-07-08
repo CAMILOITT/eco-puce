@@ -1,39 +1,43 @@
+import css from "./History.module.css"
 interface PropHistory {}
+
+const history: { date: string; n_botellas: number; n_points: number }[] = [
+  { date: "07-07-25", n_botellas: 3, n_points: 2 },
+]
 
 export default function History({}: PropHistory) {
   return (
-    <div>
+    <div className={css.main}>
       <h1>historial</h1>
 
-      <p>Aquí se muestra el historial de botellas y puntos obtenidos.</p>
+      <p className={css.description}>
+        Aquí se muestra el historial de botellas y puntos obtenidos.
+      </p>
 
-      {1 < 1 ? (
-        <p>¡No hay historial!</p>
+      <div>gráfico</div>
+
+      {history.length < 1 ? (
+        <>
+          <p>Sin registros por ahora.</p>
+          <p>¡Escanea tu primera botella para comenzar!</p>
+        </>
       ) : (
-        <table>
+        <table className={css.table}>
           <thead>
-            <th>
+            <tr>
               <td>fecha</td>
-              <td>n botellas</td>
-              <td>n puntos</td>
-            </th>
+              <td># botellas</td>
+              <td># puntos</td>
+            </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2023-10-01</td>
-              <td>5</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>2023-10-02</td>
-              <td>3</td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>2023-10-03</td>
-              <td>8</td>
-              <td>16</td>
-            </tr>
+            {history.map(({ date, n_botellas, n_points }) => (
+              <tr>
+                <td>{date}</td>
+                <td>{n_botellas}</td>
+                <td>{n_points}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
