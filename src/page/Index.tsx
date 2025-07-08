@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Link, useLocation } from "wouter"
 import { auth } from "../service/google/config"
 import { login } from "../service/google/session"
@@ -8,12 +7,13 @@ interface PropIndex {}
 
 export default function Index({}: PropIndex) {
   const [_, navigate] = useLocation()
-  const [pos, setPos] = useState({ x: 0, y: 0 })
+  // const [pos, setPos] = useState({ x: 0, y: 0 })
+  // const spanRef = useRef(null)
 
-  function handleMove(e: React.MouseEvent<HTMLAnchorElement>) {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
-  }
+  // function handleMove(e: React.MouseEvent<HTMLAnchorElement>) {
+  //   const rect = e.currentTarget.getBoundingClientRect()
+  //   setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+  // }
 
   return (
     <main className={css.main}>
@@ -37,9 +37,14 @@ export default function Index({}: PropIndex) {
 
       <Link
         href="/about"
-        className={css.link_about}
-        onMouseMove={handleMove}
-        style={{ "--top": `${pos.y}px`, "--left": `${pos.x}px` }}>
+        className={css.link_about} /*onMouseMove={handleMove}*/
+      >
+        {/* <span
+          ref={spanRef}
+          style={{ top: `${pos.y}px`, left: `${pos.x}px` }}
+          className={css.span_move}>
+          click
+        </span> */}
         <h2>Conocer mas sobre este proyecto</h2>
         <p>
           Este es un pequeño proyecto de estudiante de la facultad de Ingeniería

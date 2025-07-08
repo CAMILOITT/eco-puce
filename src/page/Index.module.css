@@ -14,7 +14,6 @@
 
 
   .link_about {
-    --before-size: 3rem;
     display: flex;
     gap: 1rem;
     text-align: center;
@@ -25,23 +24,22 @@
     border-radius: 10px;
     position: relative;
     overflow: hidden;
-    z-index: 1;
 
-    &:hover::before {
-      --before-size: 8rem;
+    &:hover .span_move {
+      width: 5rem;
+      height: 5rem;
       opacity: 1;
     }
 
-
-    &::before {
+    .span_move {
+      width: 3rem;
+      height: 3rem;
       top: calc(var(--top) - (var(--before-size)/2));
       left: calc(var(--left) - (var(--before-size)/2));
       opacity: 0;
       transition: width 250ms;
-      width: var(--before-size);
-      height: var(--before-size);
+
       position: absolute;
-      z-index: -1;
       background: black;
       content: "click";
       font-weight: bold;
@@ -52,12 +50,7 @@
       justify-content: center;
     }
 
+
   }
 
-}
-
-@property --before-size {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 3rem;
 }
