@@ -6,9 +6,10 @@ const provider = new GoogleAuthProvider()
 export async function login(redirect: () => void) {
   await signInWithRedirect(auth, provider)
     .then(result => {
-      const credential = GoogleAuthProvider.credentialFromResult(result)
-      const token = credential?.accessToken
-      const user = result
+      //const credential =
+        GoogleAuthProvider.credentialFromResult(result)
+      //const token = credential?.accessToken
+      //const user = result
       // console.log("User signed in:", user)
     })
     .then(() => redirect())
