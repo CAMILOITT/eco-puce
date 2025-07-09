@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter"
+import { useLocation } from "wouter"
 import { auth } from "../service/google/config"
 import { login } from "../service/google/session"
 import css from "./Index.module.css"
@@ -16,9 +16,9 @@ export default function Index({}: PropIndex) {
   // }
 
   return (
-    <main className={css.main}>
-      <h1>Bienvenido a EcoPUCE</h1>
-      <p>
+    <main className={css.main} style={{ padding: "3rem 4rem" }}>
+      <h1 style={{ textAlign: "center" }}>Bienvenido a EcoPUCE</h1>
+      <p style={{ textAlign: "center" }}>
         EcoPUCE es un proyecto que busca fomentar el reciclaje de botellas PET
         en la comunidad universitaria de la PUCE.
       </p>
@@ -26,7 +26,7 @@ export default function Index({}: PropIndex) {
       <div>
         <button
           onClick={async () => {
-            if (!auth) {
+            if (!auth.currentUser) {
               await login(() => navigate("/dashboard"))
             }
             navigate("/dashboard")
@@ -35,10 +35,7 @@ export default function Index({}: PropIndex) {
         </button>
       </div>
 
-      <Link
-        href="/about"
-        className={css.link_about} /*onMouseMove={handleMove}*/
-      >
+      <div className={css.link_about} /*onMouseMove={handleMove}*/>
         {/* <span
           ref={spanRef}
           style={{ top: `${pos.y}px`, left: `${pos.x}px` }}
@@ -50,7 +47,7 @@ export default function Index({}: PropIndex) {
           Este es un pequeño proyecto de estudiante de la facultad de Ingeniería
           el cual busca crear conciencia en el reciclaje de botella PET
         </p>
-      </Link>
+      </div>
     </main>
   )
 }

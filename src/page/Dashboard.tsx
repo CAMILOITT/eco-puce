@@ -1,4 +1,6 @@
+import { IconCamera } from "@tabler/icons-react"
 import { use } from "react"
+import { Link } from "wouter"
 import Banner from "../components/banner/Banner"
 import BannerPoints from "../components/bannerPoints/BannerPoints"
 import History from "../components/history/History"
@@ -23,7 +25,10 @@ export default function Dashboard({ fetchUserPosition }: PropDashboard) {
         children={<h1>Bienvenido a EcoPUCE</h1>}
       />
       <div className={css.viewer}>
-        <History history={[]} />
+        <History />
+        <Link to="/camera" className={css.link_camera}>
+          <IconCamera size={80} />
+        </Link>
         <BannerPoints
           points={userPosition?.totalPoints ?? 0}
           bottles={userPosition?.totalBottles ?? 0}

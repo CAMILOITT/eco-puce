@@ -23,8 +23,8 @@ export default function CardRankingUser({
       <span className={css.position}>{position}</span>
       <div className={css.card_ranking_user_header}>
         <Avatar avatar={avatar} alt={alt} />
+        <span className={css.name}>{name}</span>
       </div>
-      <span className={css.name}>{name}</span>
       <div className={css.card_ranking_user_body}>
         <p className={css.points}>
           <span className={css.points_title}>Points:</span>

@@ -1,0 +1,17 @@
+.interactive_btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3rem;
+
+  .take_photo {
+    scale: 2;
+
+  }
+
+  .change_camera {
+    scale: 1.3;
+  }
+}

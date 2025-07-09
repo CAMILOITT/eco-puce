@@ -1,26 +1,15 @@
-.main{
+.main {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
 
-.video{
+.video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
 }
-
-.interactive_btn {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 2rem;
-}
-
-
 
 .dialog {
   padding: 1rem 2rem;
@@ -36,4 +25,4 @@
   text-decoration: none;
   color: #333;
   font-weight: bold;
-} 
+}

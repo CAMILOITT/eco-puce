@@ -1,5 +1,4 @@
-
- :root {
+:root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -55,10 +54,10 @@ button:focus-visible {
 }
 
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: var(--fonts), sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fonts), sans-serif;
 }
 
 body {
@@ -73,13 +72,9 @@ body {
   background: ;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {}
 
-}
- 
-::-webkit-scrollbar-thumb:hover {
-
-}
+::-webkit-scrollbar-thumb:hover {}
 
 button,
 input {
@@ -130,6 +125,13 @@ dialog {
 img,
 button:focus {
   user-select: none;
+}
+
+button,
+a {
+  display: flex;
+  align-items: center;
+  align-items: center;
 }
 
 /*

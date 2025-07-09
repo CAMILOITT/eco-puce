@@ -13,4 +13,10 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  .link_camera {
+    padding: 2rem 1.5rem;
+    border-radius: 10px;
+    background: var(--bg, green);
+  }
 }

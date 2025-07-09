@@ -19,6 +19,13 @@
     transition: 400ms ease-in-out;
     min-width: 200px;
 
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
     &:open {
       /* background-color: red; */
       max-height: 576px;
@@ -29,6 +36,11 @@
       font-weight: bold;
       font-size: 2rem;
       font-weight: bold;
+    }
+
+    .table {
+      text-align: center;
+      
     }
   }
 }

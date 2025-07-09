@@ -33,9 +33,11 @@ export default function History({ historyPromise }: PropHistory) {
             </tr>
           </thead>
           <tbody>
-            {userHistory.map(({ id, /* date, */ points }) => (
+            {userHistory.map(({ id, date, points }) => (
               <tr key={id}>
-                <td>fecha</td>
+                <td>
+                  {date.toDate ? date.toDate().toLocaleString() : String(date)}
+                </td>
                 <td>{points}</td>
               </tr>
             ))}

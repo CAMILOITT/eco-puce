@@ -7,7 +7,7 @@
   gap: 1rem;
 
   background-color: var(--color-primary);
-  border-radius: 1rem;
+  border-radius: 16px;
   padding: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -17,11 +17,18 @@
     font-weight: bold;
 
   }
-  
+
   .name {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-text);
+  }
+
+  .card_ranking_user_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .card_ranking_user_body {
@@ -31,12 +38,16 @@
     /* width: 100%; */
     height: 100%;
     gap: 1rem;
-    .points, .bottle {
+
+    .points,
+    .bottle {
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-size: 1.4rem;
 
-      .bottle_title, .points_title {
+      .bottle_title,
+      .points_title {
         font-size: 1.5rem;
         font-weight: bold;
       }

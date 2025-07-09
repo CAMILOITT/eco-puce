@@ -1,27 +1,42 @@
+import { IconChevronsLeft } from "@tabler/icons-react"
 import { useEffect, useRef, useState } from "react"
 import { Link } from "wouter"
+import { auth } from "../../service/google/config"
 import { registerBottle } from "../../service/google/db/reciclar"
+import { login } from "../../service/google/session"
 import { detectBottles, loadModel } from "./bottleAI"
 import css from "./Camera.module.css"
+import InteractiveBtn from "./interactiveBtn/InteractiveBtn"
+import Loading from "./loading/Loading"
 
 interface PropCamera {}
 
 export default function Camera({}: PropCamera) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [photo, setPhoto] = useState<string | null>(null)
+  const [_, setPhoto] = useState<string>("")
   const [streaming, setStreaming] = useState(false)
-  // const [lastEmbedding, setLastEmbedding] = useState<number[] | null>(null)
+  // const [lastEmbedding, setLastEmbedding] = useState<number[] >(null)
   const [result, setResult] = useState<string>("")
   const [facingMode, setFacingMode] = useState<"user" | "environment">(
     "environment",
   )
   const dialogRef = useRef<null | any>(null)
+  const [loading, setLoading] = useState(false)
+  const [hasBottle, setHasBottle] = useState(false)
+
+  const dialogAuthRef = useRef<HTMLDialogElement | null>(null)
 
   // const [loading, SetLoading] = useState(false)
 
   useEffect(() => {
     startCamera()
+
+    if (!auth.currentUser) {
+      dialogAuthRef.current?.showModal()
+    } else {
+      dialogAuthRef.current?.close()
+    }
   }, [])
 
   async function startCamera() {
@@ -40,25 +55,8 @@ export default function Camera({}: PropCamera) {
     }
   }
 
-  async function switchCamera() {
-    // Detener cámara actual si está activa
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream
-      stream.getTracks().forEach(track => track.stop())
-      videoRef.current.srcObject = null
-      setStreaming(false)
-    }
-    setFacingMode(prev => (prev === "user" ? "environment" : "user"))
-    // Esperar a que facingMode cambie y luego iniciar cámara
-    const idTime = setTimeout(() => {
-      startCamera()
-    }, 200)
-    return () => {
-      clearTimeout(idTime)
-    }
-  }
-
   async function takePhoto() {
+    setLoading(true)
     if (dialogRef.current) {
       dialogRef.current.showModal()
     }
@@ -79,10 +77,16 @@ export default function Camera({}: PropCamera) {
         const detections = await detectBottles(await loadModel(), img)
         if (detections && detections.length > 0) {
           setResult("Botella detectada en la imagen")
-          await registerBottle("userId", 2)
+          setHasBottle(true)
+          if (!auth.currentUser?.uid)
+            throw new Error("no se pudo obtener al usuario")
+          await registerBottle(auth.currentUser?.uid, 2)
         } else {
           setResult("No se detectó una botella visible en la foto")
+          setHasBottle(false)
         }
+
+        setLoading(false)
         // if (!hasBottleInImage(embedding)) {
         //   setResult("No se detectó una botella visible en la foto")
         //   return
@@ -100,15 +104,6 @@ export default function Camera({}: PropCamera) {
     }
   }
 
-  // function stopCamera() {
-  //   if (videoRef.current && videoRef.current.srcObject) {
-  //     const stream = videoRef.current.srcObject as MediaStream
-  //     stream.getTracks().forEach(track => track.stop())
-  //     videoRef.current.srcObject = null
-  //     setStreaming(false)
-  //   }
-  // }
-
   /*
    ver cuantas cámaras tiene el dispositivo
   
@@ -123,35 +118,51 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
     <main className={css.main}>
       <video ref={videoRef} autoPlay className={css.video} />
       {streaming && (
-        <>
-          <div className={css.interactive_btn}>
-            <button onClick={takePhoto}>Tomar foto</button>
-            <button onClick={switchCamera}>
-              Cambiar a cámara {facingMode === "user" ? "trasera" : "frontal"}
-            </button>
-          </div>
-        </>
+        <InteractiveBtn
+          setFacingMode={setFacingMode}
+          setStreaming={setStreaming}
+          startCamera={startCamera}
+          takePhoto={takePhoto}
+          videoRef={videoRef}
+        />
       )}
       <canvas ref={canvasRef} style={{ display: "none" }} />
       <Link to="/dashboard" className={css.back}>
-        dash
+        <IconChevronsLeft />{" "}
       </Link>
       <dialog ref={dialogRef} className={css.dialog}>
-        validando imagen...
-        <div style={{ marginTop: 8, fontWeight: "bold" }}>
-          resultado: {result}
-        </div>
-        {photo && (
+        {loading ? (
+          <Loading />
+        ) : (
           <div>
-            <h4>Foto tomada:</h4>
-            <img
-              src={photo}
-              alt="Foto tomada"
-              style={{ width: 320, height: 240 }}
-            />
-            <Link to="/dashboard">aceptar</Link>
+            <p style={{ marginTop: 8, fontWeight: "bold" }}>{result}</p>
+            <div>
+              <button
+                onClick={() => {
+                  if (dialogRef.current) {
+                    dialogRef.current.close()
+                  }
+                }}>
+                tomar otra foto
+              </button>
+              {hasBottle && <button>ir al inicio</button>}
+            </div>
           </div>
         )}
+      </dialog>
+
+      <dialog ref={dialogAuthRef} className={css.dialog}>
+        <p>
+          para utilizar este servicio necesitas iniciar session con una cuenta
+          de google
+        </p>
+        <button
+          onClick={() => {
+            login()
+            dialogAuthRef.current?.close()
+          }}>
+          iniciar session con google
+        </button>
       </dialog>
     </main>
   )

@@ -14,7 +14,11 @@ import {
 import type { UserHistory } from "../../../types/history.type"
 import { db } from "../config"
 
-export async function getHistory(userId: string): Promise<UserHistory[]> {
+export async function getHistory(
+  userId: string | undefined,
+): Promise<UserHistory[]> {
+  if (!userId || userId === undefined) return []
+
   const historiesRef = collection(db, "users", userId, "histories")
   const q = query(historiesRef, orderBy("date", "desc"))
   const snapshot = await getDocs(q)
@@ -39,7 +43,12 @@ export async function getRanking(topN: number) {
   }))
 }
 
-export async function registerBottle(userId: string, points: number) {
+export async function registerBottle(
+  userId: string | undefined,
+  points: number,
+) {
+  if (!userId || userId === undefined) return
+
   try {
     const userRef = doc(db, "users", userId)
     const historiesRef = collection(userRef, "histories")
@@ -54,7 +63,8 @@ export async function registerBottle(userId: string, points: number) {
   } catch (error) {}
 }
 
-export async function getUserPosition(userId: string) {
+export async function getUserPosition(userId: string | undefined) {
+  if (!userId || userId === undefined) return null
   const usersRef = collection(db, "users")
   const q = query(usersRef, orderBy("totalPoints", "desc"))
   const snapshot = await getDocs(q)

@@ -1,14 +1,13 @@
 import type { JSX } from "react"
 import { Redirect } from "wouter"
-import { useAuth } from "../hooks/useAuth"
+import { auth } from "../service/google/config"
 
 interface PropProtectedRoute {
   children: JSX.Element
 }
 
 export default function ProtectedRoute({ children }: PropProtectedRoute) {
-  const { user, loading } = useAuth()
-  if (loading) return <div>Loading...</div>
-  if (!user) return <Redirect to="/login" replace />
+  const user = auth.currentUser
+  if (!user) return <Redirect to="/" replace />
   return children
 }

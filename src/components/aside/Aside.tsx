@@ -1,3 +1,4 @@
+import { IconLogout } from "@tabler/icons-react"
 import { Link } from "wouter"
 import { logout } from "../../service/google/session"
 import css from "./Aside.module.css"
@@ -42,7 +43,9 @@ export default function Aside({ open, setOpen }: PropAside) {
       <div className={css.footer}>
         {/* <button>configuration</button> */}
         {/* <button>cuenta</button> */}
-        <button onClick={logout}>cerrar session</button>
+        <button onClick={logout}>
+          <IconLogout />
+        </button>
       </div>
     </div>
   )
