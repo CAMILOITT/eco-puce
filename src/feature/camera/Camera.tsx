@@ -88,6 +88,17 @@ export default function Camera({}: PropCamera) {
         }
 
         setLoading(false)
+        // TODO: Implementation de detectar si la imagen es igual, detectar si hay un basurero, implementar tipos de contribucion por parte de empresas cmo Coca cola para promocionar sus productos.
+        // TODO: investigar la misma opción en varias universidad y adaptar al cambio para nuestra universidad
+        // TODO: Cambiar la presentation
+        // TODO: aplicar los procesos de innovation
+        // TODO: no abarcar demasiadas soluciones, una principal y otras alternativas
+        // TODO: realizar poster entretenidos como el de la facultad de arquitectura
+        // TODO: integrar el dashboard
+        // TODO: mejorar la pagina de inicio
+        // TODO: mejorar la UI de la aplicación
+        // TODO:
+
         // if (!hasBottleInImage(embedding)) {
         //   setResult("No se detectó una botella visible en la foto")
         //   return
