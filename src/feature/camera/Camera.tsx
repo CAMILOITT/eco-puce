@@ -24,7 +24,7 @@ export default function Camera({}: PropCamera) {
   const dialogRef = useRef<null | any>(null)
   const [loading, setLoading] = useState(false)
   const [hasBottle, setHasBottle] = useState(false)
-  const [_, navigate] = useLocation()
+  const [__, navigate] = useLocation()
 
   const dialogAuthRef = useRef<HTMLDialogElement | null>(null)
 
