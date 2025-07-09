@@ -50,10 +50,10 @@ export default function Ranking({ fetchRanking }: PropRanking) {
         avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
       /> */}
       <div className={css.ranking_container}>
-        {ranking.map(({ id, name, totalBottles, totalPoints }) => (
+        {ranking.map(({ id, name, totalBottles, totalPoints }, index) => (
           <CardRankingUser
             key={id}
-            position={1}
+            position={index}
             alt="user"
             avatar="https://i.pinimg.com/736x/f3/ac/43/f3ac43129773f5335327ef926bddc2af.jpg"
             points={totalPoints}
