@@ -1,6 +1,6 @@
 import { IconChevronsLeft } from "@tabler/icons-react"
 import { useEffect, useRef, useState } from "react"
-import { Link } from "wouter"
+import { Link, useLocation } from "wouter"
 import { auth } from "../../service/google/config"
 import { registerBottle } from "../../service/google/db/reciclar"
 import { login } from "../../service/google/session"
@@ -24,6 +24,7 @@ export default function Camera({}: PropCamera) {
   const dialogRef = useRef<null | any>(null)
   const [loading, setLoading] = useState(false)
   const [hasBottle, setHasBottle] = useState(false)
+  const [_, navigate] = useLocation()
 
   const dialogAuthRef = useRef<HTMLDialogElement | null>(null)
 
@@ -145,7 +146,15 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
                 }}>
                 tomar otra foto
               </button>
-              {hasBottle && <button>ir al inicio</button>}
+              {hasBottle && (
+                <button
+                  onClick={() => {
+                    navigate("/dashboard")
+                  }}>
+                  {" "}
+                  ir al inicio
+                </button>
+              )}
             </div>
           </div>
         )}
